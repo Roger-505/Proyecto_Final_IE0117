@@ -1,0 +1,31 @@
+¿Cuál es la función con la que se imprime un mensaje en Python?/1. int/2. echo/3. print()/4. for/3/1
+¿Cómo se llama el superhéroe que se viste de murciélago?/1. Batman/2. Superman/3. Iron Man/4. Popeye/1/1
+¿En qué banda estuvo el famoso cantante Freddie Mercury?/1. Los Querubines Negros del Morocotongo/2. Queen/3. Kizz/4. The Beatles/2/1
+¿Cuál es un color primario?/1. Rojo/2. Negro/3. Naranja/4. Morado/1/1
+En idioma inglés, la palabra “carro” se dice:?/1. Red/2. Cell /3. Computer/4. Car/4/1
+¿Qué día  se celebra la independencia de Costa Rica?/1. 15 de noviembre/2. 4 de mayo/3. 15 de septiembre/4. 24 de diciembre/3/1
+¿Cuántas fronteras tiene Brasil?/1. 12/2. 8/3. 10/4. 16/3/2
+¿Cuál es el pasado de la palabra keep?/1. kept/2. keed/3. kid/4. keeping/1/2
+¿Cuáles son las siglas de la corriente que cambian con el tiempo?/1. CD/2. AC/3. CT/4. TD/2/2
+¿Cuál país ganó la Copa Mundial de Fútbol 2022?/1. Francia/2. Alemania/3. Brasil/4. Argentina/4/2
+¿Cómo se llama la combinación de números reales e imaginarios?/1. Complejos/2. Irreales/3. Fantásticos/4. Booleanos/1/2
+El superusuario del sistema operativo Linux lleva como nombre:/1. Toor/2. SU/3. Administrator/4. Root/4/3
+¿Cuál es la capital de Suiza?/1. Berna/2. Zúnich/3. Estocolmo/4. Aarau/1/3
+La consola más vendida de la empresa nintendo es:/1. DS/2. Switch/3. Nintendo 64/4. Wii/1/3
+¿Cuál de los siguientes famosos no ha ganado un premio Óscar?/1. Leonardo DiCaprio/2. Liam Neeson/3. Joaquin Phoenix/4. Morgan Freeman/2/3
+¿Cuál es la unidad de medida de la corriente?/1. Vollt/2. Metros/3. Ampere/4. Watts/3/3
+¿Cuál no es un pokémon de tipo eléctrico?/1. Pikachu/2. Voltorb/3. Indeedee/4. Togedemaru/3/4
+¿Cuál no es el nombre de un lenguaje de programación?/1. Ruby/2. Dart/3. Python/4. Linux/4/4
+Un dispositivo almacenador de energía es:/1. Resistencia/2. Interruptor/3. Capacitor/4. Fusible/3/4
+¿En qué año se creó la Constitución Política de Costa Rica vigente? /1. 1970/2. 1949/3. 1930/4. 1956/1/4
+¿Cómo se le llama al proceso de identificar y corregir fallos en un programa?/1. Debugging/2. Scripting/3. Clearing/4. Fishing/1/4
+¿Cuál es el único planeta en nuestro sistema solar que gira en dirección opuesta a la mayoría de los otros planetas?/1. Venus/2. La Tierra/3. Júpiter/4. Saturno/1/5
+¿Cuál es la capital de Suiza?/1. Berna/2. Zúnich/3. Estocolmo/4. Aarau/1/5
+En el juego "The Legend of Zelda: Ocarina of Time," ¿cuál de estos personajes es el sabio de la Selva Kokiri que ayuda a Link en su búsqueda?/1. Zelda/2. Saria/3. Rauru/4. Roshi/2/5
+¿Cuál de las siguientes películas ganó el Premio de la Academia a la Mejor Película en el año 1994?/1. Pulp Fiction /2. Forrest Gump/3. True Lies/4. Dumb and Dumber/2/5
+¿Quién fue el primer presidente de los Estados Unidos de América?/1. John Adams/2. Benjamin Franklin/3. George Washington/4. Thomas Jefferson/3/5
+El nombre del lago ubicado entre Israel y Jordania es:/1. Mar Muerto /2. Victoria/3. Baikal/4. Lago de Garda/1/6
+¿Cuál es el valor de la suma infinita 0.5 + 0.25 + 0.125 + 0.0625 + 0.03125 + ...?/1. 1 /2. 2/3. 3/4. 4/1/6
+¿Cuál es el nombre del corredor de maratón keniano que rompió el récord mundial de maratón en 2019 con un tiempo de 1 hora, 59 minutos y 40 segundos en la carrera "INEOS 1:59 Challenge"?/1. Dennis Kipruto Kimetto/2. Geoffrey Mutai/3. Eliud Kipchoge/4. Wilson Kipsang/3/7
+En el videojuego "Metal Gear Solid 3: Snake Eater," el personaje principal, Naked Snake, se encuentra con un enemigo llamado The End, un legendario francotirador que es famoso por ser uno de los jefes más memorables del juego. ¿Cuál es la peculiaridad de The End que lo hace especialmente desafiante?/1. Es invisible y solo se puede detectar mediante infrarrojos/2. Puede controlar la mente de Naked Snake/3. Es un cyborg con habilidades sobrenaturales/4.Es un enemigo que envejece y muere con el tiempo en tiempo real/4/7
+
