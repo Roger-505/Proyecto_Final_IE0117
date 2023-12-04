@@ -9,7 +9,7 @@ class Comodines:
 
 class Mitad(Comodines):
     def accion_comodin(self, enunciado, preguntas, pregunta_correcta):
-        for i in range(2):
+        for i in range(len(preguntas)//2):
             while True:
                 eliminar = preguntas[random.randint(0,len(preguntas)-1)]
                 if eliminar != pregunta_correcta:
