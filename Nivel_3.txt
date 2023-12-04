@@ -1,0 +1,30 @@
+El superusuario del sistema operativo Linux lleva como nombre:
+a. Toor
+b. SU
+c. Administrator
+d. Root
+CORRECTA: d
+¿Cuál es la capital de Suiza?
+a. Berna
+b. Zúnich
+c. Estocolmo
+d. Aarau
+CORRECTA: a 
+La consola más vendida de la empresa nintendo es:
+a. DS
+b. Switch
+c. Nintendo
+d. Wii
+CORRECTA: a 
+¿Cuál de los siguientes famosos no ha ganado un premio Óscar?
+a. Leonardo DiCaprio
+b. Liam Neeson 
+c. Joaquin Phoenix 
+d. Morgan Freeman
+CORRECTA: b
+¿Cuál es la unidad de medida de la corriente?
+a. Vollt
+b. Metros
+c. Ampere
+d. Watts
+CORRECTA: c

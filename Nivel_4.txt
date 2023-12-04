@@ -1,0 +1,30 @@
+¿Cuál no es un pokémon de tipo eléctrico?
+a. Pikachu
+b. Voltorb
+c. Indeedee
+d. Togedemaru
+CORRECTA: c
+¿Cuál no es el nombre de un lenguaje de programación?
+a. Ruby
+b. Dart
+c. Python
+d. Linux
+CORRECTA: d
+Un dispositivo almacenador de energía es:
+a. Resistencia
+b. Interruptor
+c. Capacitor
+d. Fusible
+CORRECTA: c
+¿En qué año se creó la Constitución Política de Costa Rica vigente? 
+a. 1970
+b. 1949
+c. 1930
+d. 1956
+CORRECTA: b
+¿Cómo se le llama al proceso de identificar y corregir fallos en un programa?
+a. Debugging
+b. Scripting
+c. Clearing
+d. Fishing
+CORRECTA: a
