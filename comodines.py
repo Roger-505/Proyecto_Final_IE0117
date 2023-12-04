@@ -7,19 +7,23 @@ class Comodines:
 # Método a modificar en cada clase hija para cumplir con sus diferentes acciones
     def accion_comodin(self):
         pass
-
+# Clase hija de Comodines
 class Mitad(Comodines):
-    def accion_comodin(self, enunciado, opciones, respuesta_correcta):
-        print("Vamos a eliminar dos opciones incorrectas")
+    def accion_comodin(self, opciones, respuesta_correcta):
+        print("\nVamos a eliminar dos opciones incorrectas\n")
         time.sleep(3)
         for i in range(len(opciones)//2): #For con la mitad de las opciones totales para eliminar la mitad
             while True:
                 eliminar = opciones[random.randint(0,len(opciones)-1)]
-                if eliminar != respuesta_correcta: #Verificamos que la respuesta a eliminar no sea la correcta
+                if not respuesta_correcta + "." in eliminar.upper(): #Verificamos que la respuesta a eliminar no sea la correcta
                     opciones.remove(eliminar)
                     break
-        return opciones
+        print("Estas son tus opciones finales:\n")
+        print("Opciones (escriba la letra):\n")
+        for opcion in opciones:
+            print(f"{opcion}")
 
+# Clase hija de Comodines
 class Publico(Comodines):
     def accion_comodin(self, opciones, respuesta_correcta):
         acumulado = 0 # Valor bandera que se encarga que el porcentaje total sea 100
@@ -33,7 +37,7 @@ class Publico(Comodines):
                 porcentaje = 100 - acumulado
                 porcentajes_asignados[clave[i]] = str(porcentaje) + "%"
 
-            elif opciones[i] == respuesta_correcta:
+            elif respuesta_correcta.lower() + "." in opciones[i]:
             # Mejoramos el código para que la respuesta correcta tenga mayor probabilidad de obtener números altos
                 factor_atenuacion = 1.05 #factor que modifica las probabilidades
 
@@ -72,17 +76,41 @@ class Publico(Comodines):
 
         print("El público votará por la respuesta que crean que es correcta\n")
         time.sleep(3)
-        print("Estos han sido los resultados")
-        return porcentajes_asignados
+        print("Estos han sido los resultados:\n")
+        print(porcentajes_asignados)
 
-# Prueba de la clase Público
-enunciado = "¿Cuál es la función con la que se imprime un mensaje en Python"
-opciones = ["int", "echo", "print", "for"]
-respuesta_correcta = "print"
-prueba = Publico()
-porcentajes = prueba.accion_comodin(opciones, respuesta_correcta)
-print(porcentajes)
 
+class Cambio_pregunta(Comodines):
+    # Lógica similiar a la de cargar_preguntas
+    def accion_comodin(self, archivo_nivel, pregunta_actual):
+        respuesta_correcta = ""
+        while True:
+            with open(("Nivel_" + str(archivo_nivel) + ".txt"), 'r') as file:
+                lines = file.readlines()
+
+            i = 0
+            while i < len(lines):
+                pregunta = lines[i].strip()
+                opciones = [lines[i+j].strip() for j in range(1, 5)]
+
+            # Estructura encargada de buscar la línea que contiene la respuesta correcta
+                for j in range(1, 6):
+                    if lines[i+j].startswith("CORRECTA:"):
+                        respuesta_correcta = lines[i+j].split(': ')[1].strip()[0].upper()
+                        break
+
+                i += 6    # Avanza al siguiente conjunto de pregunta y opciones
+            
+            if not pregunta_actual == pregunta:
+                print("Esta es tu nueva pregunta:\n")
+                print(pregunta,"\n")
+                time.sleep(1)
+                print("Opciones (escriba la letra):\n")
+                for opcion in opciones:
+                    print(f"{opcion}")
+                break
+        return respuesta_correcta
+        
 
 
 
