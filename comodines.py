@@ -9,31 +9,31 @@ class Comodines:
         pass
 
 class Mitad(Comodines):
-    def accion_comodin(self, enunciado, preguntas, pregunta_correcta):
-        print("Vamos a eliminar dos respuestas incorrectas")
+    def accion_comodin(self, enunciado, opciones, respuesta_correcta):
+        print("Vamos a eliminar dos opciones incorrectas")
         time.sleep(3)
-        for i in range(len(preguntas)//2): #For con la mitad de las preguntas totales para eliminar la mitad
+        for i in range(len(opciones)//2): #For con la mitad de las opciones totales para eliminar la mitad
             while True:
-                eliminar = preguntas[random.randint(0,len(preguntas)-1)]
-                if eliminar != pregunta_correcta: #Verificamos que la respuesta a eliminar no sea la correcta
-                    preguntas.remove(eliminar)
+                eliminar = opciones[random.randint(0,len(opciones)-1)]
+                if eliminar != respuesta_correcta: #Verificamos que la respuesta a eliminar no sea la correcta
+                    opciones.remove(eliminar)
                     break
-        return preguntas
+        return opciones
 
 class Publico(Comodines):
-    def accion_comodin(self, preguntas, pregunta_correcta):
+    def accion_comodin(self, opciones, respuesta_correcta):
         acumulado = 0 # Valor bandera que se encarga que el porcentaje total sea 100
 
         porcentajes_asignados = {"a":"0%","b":"0%","c":"0%","d":"0%"} #Porcentaje final de cada respuesta
 
         clave = list(porcentajes_asignados.keys()) #Obtenemos las claves para modificar el valor
 
-        for i in range(len(preguntas)):
-            if i == len(preguntas) - 1: #La respuesta "d" tiene que poseer el porcentaje sobrante para componer un 100%
+        for i in range(len(opciones)):
+            if i == len(opciones) - 1: #La respuesta "d" tiene que poseer el porcentaje sobrante para componer un 100%
                 porcentaje = 100 - acumulado
                 porcentajes_asignados[clave[i]] = str(porcentaje) + "%"
 
-            elif preguntas[i] == pregunta_correcta:
+            elif opciones[i] == respuesta_correcta:
             # Mejoramos el código para que la respuesta correcta tenga mayor probabilidad de obtener números altos
                 factor_atenuacion = 1.05 #factor que modifica las probabilidades
 
@@ -77,10 +77,10 @@ class Publico(Comodines):
 
 # Prueba de la clase Público
 enunciado = "¿Cuál es la función con la que se imprime un mensaje en Python"
-preguntas = ["int", "echo", "print", "for"]
-pregunta_correcta = "print"
+opciones = ["int", "echo", "print", "for"]
+respuesta_correcta = "print"
 prueba = Publico()
-porcentajes = prueba.accion_comodin(preguntas, pregunta_correcta)
+porcentajes = prueba.accion_comodin(opciones, respuesta_correcta)
 print(porcentajes)
 
 
