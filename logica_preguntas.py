@@ -59,6 +59,8 @@ class Juego_preguntas:
         print("Opciones:")
         for opcion in self.pregunta_actual.opciones:
             print(f"{opcion}")
+        print("Salir")
+
             
 # Esta función esta encargada de proporcionar una interfaz para mostrar las preguntas, opciones y respuesta.
 
@@ -86,6 +88,10 @@ class Juego_preguntas:
                 exit()
 
             pregunta_respondida.set()
+
+            if respuesta == "SALIR":
+                print("La seccion de juego ha finalizado.")
+                exit()
 
             if respuesta == self.pregunta_actual.respuesta_correcta:
                 print("¡Respuesta correcta!")
