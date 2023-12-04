@@ -44,7 +44,7 @@ class Juego_preguntas:
         self.archivos_preguntas = archivos_preguntas
         self.rondas = 7
         self.preguntas = Pregunta.cargar_todas_las_preguntas(archivos_preguntas)
-
+        self.puntos = 0  # Puntos iniciales
 
 # Funcion temporizador
 
@@ -95,8 +95,11 @@ class Juego_preguntas:
 
             if respuesta == self.pregunta_actual.respuesta_correcta:
                 print("¡Respuesta correcta!")
+                self.puntos += 10   # Se suman puntos por cada pregunta correcta
+                print(f"Puntos acumulados: {self.puntos}")
+
             else:
-                print("Respuesta incorrecta. Fin del juego.")
+                print("Respuesta incorrecta. Fin del juego. Puntos acumulados: {self.puntos}")
                 exit()
 
 
