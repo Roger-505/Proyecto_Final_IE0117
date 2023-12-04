@@ -11,35 +11,40 @@ class Pregunta:
         self.respuesta_correcta = respuesta_correcta
     
 # Esta funcion es la encargada de procesar el archivo .txt que almacena las preguntas, opciones, respuestas correctas y devuelv una lista de tuplas con la información.
-    def cargar_preguntas_y_opciones(nombre_archivo):
-        with open(nombre_archivo, 'r') as archivo:
-            lineas = archivo.readlines()
+    def cargar_todas_las_preguntas(archivos_preguntas):
+        todas_las_preguntas = []
+        for archivo in archivos_preguntas:
+            with open(archivo, 'r') as file:
+                lines = file.readlines()
 
-        preguntas = []
-        i = 0
-        while i < len(lineas):
-            pregunta = lineas[i].strip()
-            opciones = [lineas[i+j].strip() for j in range(1, 5)]
+            i = 0
+            preguntas_ronda = []
+            while i < len(lines):
+                pregunta = lines[i].strip()
+                opciones = [lines[i+j].strip() for j in range(1, 5)]
 
 # Estructura encargada de buscar la línea que contiene la respuesta correcta
-            for j in range(1, 6):
-                if lineas[i+j].startswith("CORRECTA:"):
-                    respuesta_correcta = lineas[i+j].split(': ')[1].strip()[0].upper()
-                    break
+                for j in range(1, 6):
+                    if lines[i+j].startswith("CORRECTA:"):
+                        respuesta_correcta = lines[i+j].split(': ')[1].strip()[0].upper()
+                        break
 
-            preguntas.append(Pregunta(pregunta, opciones, respuesta_correcta))
-            i += 6    # Avanza al siguiente conjunto de pregunta y opciones
+                preguntas_ronda.append(Pregunta(pregunta, opciones, respuesta_correcta))
+                i += 6    # Avanza al siguiente conjunto de pregunta y opciones
 
-        return preguntas
+            todas_las_preguntas.append(preguntas_ronda)
+
+        return todas_las_preguntas
 
         
 # Clase que encapsula la logica del juego.
 
 class Juego_preguntas:
     def __init__(self, preguntas_archivo):
-        self.preguntas = Pregunta.cargar_preguntas_y_opciones(preguntas_archivo)
-        self.pregunta_actual = None
-        self.respuesta_correcta = None
+        self.archivos_preguntas = archivos_preguntas
+        self.rondas = 7
+        self.preguntas = Pregunta.cargar_todas_las_preguntas(archivos_preguntas)
+
 
 # Funcion temporizador
 
@@ -50,7 +55,7 @@ class Juego_preguntas:
             exit()
 
     def mostrar_pregunta(self):
-        print(f"Pregunta: {self.pregunta_actual.enunciado}\n")
+        print(f"Nivel {self.nivel_actual} - Pregunta: {self.pregunta_actual.enunciado}\n")
         print("Opciones:")
         for opcion in self.pregunta_actual.opciones:
             print(f"{opcion}")
@@ -61,11 +66,13 @@ class Juego_preguntas:
         print("¡Bienvenido a ¿Quién quiere ser millonario?!")
         time.sleep(2)  # Delay de 2 segundos
 
-        for idx, pregunta in enumerate(self.preguntas):
-            self.pregunta_actual = pregunta
-            self.respuesta_correcta = pregunta.respuesta_correcta
+    
+        for nivel, preguntas_nivel in enumerate(self.preguntas, start=1):
+            self.nivel_actual = nivel
+            print(f"\n----- Nivel {self.nivel_actual} -----\n")
 
-            print(f"Pregunta {idx + 1}:")
+
+            self.pregunta_actual = random.choice(preguntas_nivel) # Selecciona una pregunta aleatoria del nivel
             self.mostrar_pregunta()
 
             pregunta_respondida = threading.Event()
@@ -80,12 +87,19 @@ class Juego_preguntas:
 
             pregunta_respondida.set()
 
-            if respuesta == self.respuesta_correcta:
+            if respuesta == self.pregunta_actual.respuesta_correcta:
                 print("¡Respuesta correcta!")
             else:
                 print("Respuesta incorrecta. Fin del juego.")
                 exit()
 
 
-juego = Juego_preguntas("preguntas.txt")
+
+archivos_preguntas = ["Nivel_1.txt", "Nivel_2.txt", "Nivel_3.txt",
+                      "Nivel_4.txt", "Nivel_5.txt", "Nivel_6.txt", "Nivel_7.txt"]
+
+juego = Juego_preguntas(archivos_preguntas)
 juego.jugar()
+
+
+
