@@ -9,18 +9,9 @@ class Pregunta:
         self.enunciado = enunciado
         self.opciones = opciones
         self.respuesta_correcta = respuesta_correcta
-        
-# Clase que encapsula la logica del juego.
-
-class Juego_preguntas:
-    def __init__(self, preguntas_archivo):
-        self.preguntas = self.cargar_preguntas_y_opciones(preguntas_archivo)
-        self.pregunta_actual = None
-        self.respuesta_correcta = None
-
-# Esta funcion es la encargada de procesar el archivo .txt que almacena las preguntas, opciones, respuestas correctas y devuelve una lista de tuplas con la información.
-
-    def cargar_preguntas_y_opciones(self, nombre_archivo):
+    
+# Esta funcion es la encargada de procesar el archivo .txt que almacena las preguntas, opciones, respuestas correctas y devuelv una lista de tuplas con la información.
+    def cargar_preguntas_y_opciones(nombre_archivo):
         with open(nombre_archivo, 'r') as archivo:
             lineas = archivo.readlines()
 
@@ -29,18 +20,26 @@ class Juego_preguntas:
         while i < len(lineas):
             pregunta = lineas[i].strip()
             opciones = [lineas[i+j].strip() for j in range(1, 5)]
-            
-# Estructura encargada de buscar la línea que contiene la respuesta correcta
 
+# Estructura encargada de buscar la línea que contiene la respuesta correcta
             for j in range(1, 6):
                 if lineas[i+j].startswith("CORRECTA:"):
                     respuesta_correcta = lineas[i+j].split(': ')[1].strip()[0].upper()
                     break
 
             preguntas.append(Pregunta(pregunta, opciones, respuesta_correcta))
-            i += 6 # Avanza al siguiente conjunto de pregunta y opciones
+            i += 6    # Avanza al siguiente conjunto de pregunta y opciones
 
         return preguntas
+
+        
+# Clase que encapsula la logica del juego.
+
+class Juego_preguntas:
+    def __init__(self, preguntas_archivo):
+        self.preguntas = Pregunta.cargar_preguntas_y_opciones(preguntas_archivo)
+        self.pregunta_actual = None
+        self.respuesta_correcta = None
 
 # Funcion temporizador
 
