@@ -29,7 +29,7 @@ class Publico(Comodines):
         clave = list(porcentajes_asignados.keys()) #Obtenemos las claves para modificar el valor
 
         for i in range(len(preguntas)):
-            if i == len(preguntas) - 1: #La respuesta de tiene que posee el porcentaje sobrante para componer un 100%
+            if i == len(preguntas) - 1: #La respuesta "d" tiene que poseer el porcentaje sobrante para componer un 100%
                 porcentaje = 100 - acumulado
                 porcentajes_asignados[clave[i]] = str(porcentaje) + "%"
 
@@ -53,7 +53,7 @@ class Publico(Comodines):
                     acumulado += porcentaje
             
             else:
-                # Misma situació que con las respuesta correcta, pero ahora mayor probabilidad de números bajos
+                # Misma situación que con las respuesta correcta, pero ahora mayor probabilidad de números bajos
                 factor_atenuacion = 0.93
                 
                 rango_numeros = range(1, 101)  
