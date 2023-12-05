@@ -47,14 +47,6 @@ class Juego_preguntas:
         self.puntos = 0
 
 
-# Funcion temporizador
-
-    def temporizador(self, tiempo_maximo, pregunta_respondida):
-        time.sleep(tiempo_maximo)
-        if not pregunta_respondida.is_set():
-            print("\n¡Tiempo agotado! Fin del juego.")
-            exit()
-
     def mostrar_pregunta(self):
         print(f"Nivel {self.nivel_actual} - Pregunta: {self.pregunta_actual.enunciado}\n")
         time.sleep(1)
@@ -122,9 +114,7 @@ class Juego_preguntas:
             self.mostrar_pregunta()
 
             pregunta_respondida = threading.Event()
-            temporizador_hilo = threading.Thread(target=self.temporizador, args=(70, pregunta_respondida))
-            temporizador_hilo.start()
-
+    
             try:
                 respuesta = str(input("Respuesta: ").upper())
             except ValueError:
