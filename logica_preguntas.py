@@ -1,6 +1,7 @@
 import random
 import time
 import threading
+from comodines import Publico, Mitad, Cambio_pregunta
 
 class Pregunta:
     def __init__(self, enunciado, opciones, respuesta_correcta):
@@ -139,6 +140,7 @@ class Juego_preguntas:
                 exit()
 
             if respuesta == self.pregunta_actual.respuesta_correcta:
+                print(self.pregunta_actual.respuesta_correcta)
                 print("¡Respuesta correcta!")
             else:
                 print("Respuesta incorrecta. Fin del juego.")
