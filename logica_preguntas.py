@@ -145,10 +145,9 @@ class Juego_preguntas:
                 exit()
 
 
-archivos_preguntas = ["Nivel_1.txt", "Nivel_2.txt", "Nivel_3.txt",
-                      "Nivel_4.txt", "Nivel_5.txt", "Nivel_6.txt", "Nivel_7.txt"]
+if __name__ == "__main__":
+    archivos_preguntas = ["Nivel_1.txt", "Nivel_2.txt", "Nivel_3.txt",
+                        "Nivel_4.txt", "Nivel_5.txt", "Nivel_6.txt", "Nivel_7.txt"]
 
-juego = Juego_preguntas(archivos_preguntas)
-juego.jugar()
-
-
+    juego = Juego_preguntas(archivos_preguntas)
+    juego.jugar()
