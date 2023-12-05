@@ -33,13 +33,3 @@ class Usuario:
                     print("La edad debe tener máximo 2 dígitos. Inténtalo de nuevo.")
                 if not edad.isdigit():
                     print("La edad puede contener números. Inténtalo de nuevo.")
-
-def main():
-    usuario_objeto = Usuario()
-    
-    print("Nombre:", usuario_objeto.nombre)
-    print("Trabajo:", usuario_objeto.trabajo)
-    print("Edad:", usuario_objeto.edad)
-
-main()
-
