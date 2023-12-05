@@ -38,7 +38,7 @@ class Pregunta:
 # Clase que encapsula la logica del juego.
 
 class Juego_preguntas:
-    def __init__(self, preguntas_archivo):
+    def __init__(self, archivos_preguntas):
         self.archivos_preguntas = archivos_preguntas
         self.rondas = 7
         self.preguntas = Pregunta.cargar_todas_las_preguntas(archivos_preguntas)
