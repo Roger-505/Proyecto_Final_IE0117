@@ -1,0 +1,5 @@
+Nombre: Emmanuel 
+Trabajo: Electricista
+Edad: 21
+Puntos obtenidos: 7
+
