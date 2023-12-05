@@ -27,7 +27,6 @@ Al ser un producto que busca funcionar en conjunto, las dependencias de la parte
 | Threading    | [Threading](https://docs.python.org/3/library/threading.html) |
 | Time         | [Time](https://docs.python.org/3/library/time.html) |
 | Tkinter      | [Tkinter](https://docs.python.org/3/library/tkinter.html) |
-| tkSnack      | [tkSnack](https://pypi.org/project/tksnack/) |
 
 ## Descripción de las Bibliotecas
 
@@ -43,9 +42,6 @@ La biblioteca `time` ofrece funciones relacionadas con la medición del tiempo y
 ### Tkinter
 `Tkinter` es una biblioteca gráfica incorporada en Python que te permite crear interfaces de usuario. Consulta la [Tkinter Documentation](https://docs.python.org/3/library/tkinter.html) para obtener información sobre cómo utilizarla.
 
-### tkSnack
-`tkSnack` es una extensión de `Tkinter` que proporciona funciones para reproducir sonidos. Puedes encontrar más detalles en [tkSnack PyPI](https://pypi.org/project/tksnack/).
-
 ##Instalación
 
 Para instalarlos en "bash":
@@ -54,7 +50,6 @@ Para instalarlos en "bash":
 - pip install time
 - pip install random
 - pip install tk
-- pip install tksnack
 
 
 ## Pasos para ejecución
@@ -62,7 +57,7 @@ Para instalarlos en "bash":
 1. Abre una terminal.
 2. Navega al directorio que contiene `logica_preguntas.py`.
 3. Ejecuta el siguiente comando para "bash":
-   - python `logica_preguntas.py`
+   - python `gui.py`
 
 
 ~                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
