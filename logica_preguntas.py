@@ -12,7 +12,7 @@ class Pregunta:
     def cargar_todas_las_preguntas(archivos_preguntas):
         todas_las_preguntas = []
         for archivo in archivos_preguntas:
-            with open(archivo, 'r') as file:
+            with open(archivo, 'r', encoding="utf8") as file:
                 lines = file.readlines()
 
             i = 0
