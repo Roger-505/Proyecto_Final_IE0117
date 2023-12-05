@@ -1,38 +1,38 @@
-class Usuario:
-    def __init__(self):
-        self.nombre = self.obtener_nombre()
-        self.trabajo = self.obtener_trabajo()
-        self.edad = self.obtener_edad()
+import tkinter as tk
+from tkinter import messagebox
 
-    def obtener_nombre(self):
+class Usuario:
+    def __init__(self, nombre, trabajo, edad):
+        self.nombre = self.obtener_nombre(nombre)
+        self.trabajo = self.obtener_trabajo(trabajo)
+        self.edad = self.obtener_edad(edad)
+
+    def obtener_nombre(self, nombre):
         while True:
-            nombre = input("Por favor, ingresa tu nombre: ")
-            if 4 <= len(nombre) <= 16 and nombre.isalpha():
+            if 4 <= len(nombre) <= 16 and  nombre.isalpha():
                 return nombre
             else:
-                if not (4 <= len(nombre) <= 16):
-                    print("El nombre debe tener entre 4 y 16 letras. Inténtalo de nuevo.")
-                if not nombre.isalpha():
-                    print("El nombre solo puede contener letras. Inténtalo de nuevo.")
+                if not (4 <= len(self.nombre) <= 16):
+                    return "El nombre debe tener entre 4 y 16 letras. Inténtalo de nuevo."
+                if not self.nombre.isalpha():
+                    return "El nombre solo puede contener letras. Inténtalo de nuevo."
 
-    def obtener_trabajo(self):
+    def obtener_trabajo(self, trabajo):
         while True:
-            trabajo = input("¿Cuál es tu trabajo? ")
             if trabajo.isalpha():
                 return trabajo
             else:
-                print("El trabajo solo puede contener letras. Inténtalo de nuevo.")
+                return "El trabajo solo puede contener letras. Inténtalo de nuevo."
 
-    def obtener_edad(self):
+    def obtener_edad(self, edad):
         while True:
-            edad = input("¿Cuántos años tienes? ")
             if 1 <= len(edad) <= 2 and edad.isdigit():
                 return edad
             else:
                 if not (1 <= len(edad) <= 2):
-                    print("La edad debe tener máximo 2 dígitos. Inténtalo de nuevo.")
+                    return "La edad debe tener máximo 2 dígitos. Inténtalo de nuevo."
                 if not edad.isdigit():
-                    print("La edad puede contener números. Inténtalo de nuevo.")
+                    return "La edad puede contener números. Inténtalo de nuevo."
 
 def main():
     usuario_objeto = Usuario()
