@@ -12,9 +12,9 @@ class Usuario:
             if 4 <= len(nombre) <= 16 and  nombre.isalpha():
                 return nombre
             else:
-                if not (4 <= len(self.nombre) <= 16):
+                if not (4 <= len(nombre) <= 16):
                     return "El nombre debe tener entre 4 y 16 letras. Inténtalo de nuevo."
-                if not self.nombre.isalpha():
+                if not nombre.isalpha():
                     return "El nombre solo puede contener letras. Inténtalo de nuevo."
 
     def obtener_trabajo(self, trabajo):
