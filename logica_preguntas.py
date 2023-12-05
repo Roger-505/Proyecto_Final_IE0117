@@ -43,6 +43,8 @@ class Juego_preguntas:
         self.rondas = 7
         self.preguntas = Pregunta.cargar_todas_las_preguntas(archivos_preguntas)
         self.comodines = ["Mitad","Público","Cambiar pregunta"]
+        self.usuario = usuario
+        self.puntos = 0
 
 
 # Funcion temporizador
@@ -144,7 +146,7 @@ class Juego_preguntas:
 
             if respuesta == self.pregunta_actual.respuesta_correcta:
                 print("¡Respuesta correcta!")
-                self.puntos += 1
+                self.puntos += 10
                 print(f"Puntos acumulados: {self.puntos}")
             else:
                 print(f"Respuesta incorrecta. Fin del juego. Puntos acumulados: {self.puntos}")
@@ -194,7 +196,7 @@ def main():
             juego = Juego_preguntas(archivos_preguntas, usuario_objeto)
             juego.jugar()
         elif opcion == "2":
-            juego = Juego_preguntas([], None)  # No es necesario pasar un usuario para mostrar puntajes antiguos
+            juego = Juego_preguntas([]) 
             juego.mostrar_puntajes_antiguos()
         elif opcion == "3":
             print("¡Hasta luego!")
