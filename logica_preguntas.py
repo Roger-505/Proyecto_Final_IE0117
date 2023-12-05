@@ -106,9 +106,8 @@ class Juego_preguntas:
         return respuesta
 
 # Esta función esta encargada de proporcionar una interfaz para mostrar las preguntas, opciones y respuesta.
-
     def jugar(self):
-        print("¡Bienvenido a ¿Quién quiere ser millonario?!")
+        print("\nComenzando nuevo juego...")
         time.sleep(2)  # Delay de 2 segundos
 
     
@@ -128,27 +127,79 @@ class Juego_preguntas:
                 respuesta = str(input("Respuesta: ").upper())
             except ValueError:
                 print("Por favor, ingresa una opcion valida.")
+                self.guardar_resultados()
                 exit()
 
             pregunta_respondida.set()
+
+
             if respuesta == "COMODÍN":
                 respuesta = self.invocar_comodines()
 
+
             if respuesta == "SALIR":
-                print("La seccion de juego ha finalizado.")
+                print(f"La sección de juego ha finalizado. Puntos acumulados: {self.puntos}")
+                self.guardar_resultados()
                 exit()
 
             if respuesta == self.pregunta_actual.respuesta_correcta:
                 print("¡Respuesta correcta!")
+                self.puntos += 1
+                print(f"Puntos acumulados: {self.puntos}")
             else:
-                print("Respuesta incorrecta. Fin del juego.")
+                print(f"Respuesta incorrecta. Fin del juego. Puntos acumulados: {self.puntos}")
+                self.guardar_resultados()
                 exit()
 
-
-archivos_preguntas = ["Nivel_1.txt", "Nivel_2.txt", "Nivel_3.txt",
-                      "Nivel_4.txt", "Nivel_5.txt", "Nivel_6.txt", "Nivel_7.txt"]
-
-juego = Juego_preguntas(archivos_preguntas)
-juego.jugar()
+        print(f"¡Felicidades! Has completado todas las rondas. Puntos totales: {self.puntos}")
+        self.guardar_resultados()
 
 
+
+    def guardar_resultados(self):
+        with open("resultados.txt", "a") as file:
+            file.write(f"Nombre: {self.usuario.nombre}\n")
+            file.write(f"Trabajo: {self.usuario.trabajo}\n")
+            file.write(f"Edad: {self.usuario.edad}\n")
+            file.write(f"Puntos obtenidos: {self.puntos}\n")
+            file.write("\n")
+
+    def mostrar_puntajes_antiguos(self):
+        print("\n----- Puntajes Antiguos -----\n")
+        try:
+            with open("resultados.txt", "r") as file:
+                print(file.read())
+        except FileNotFoundError:
+            print("Aún no hay puntajes antiguos.")
+
+def mostrar_menu():
+    print("\n----- Menú Principal -----\n")
+    print("1. Jugar")
+    print("2. Mostrar Puntajes Antiguos")
+    print("3. Salir")
+
+
+
+def main():
+    print("¡Bienvenido a ¿Quién quiere ser millonario?!")
+
+    while True:
+        mostrar_menu()
+        opcion = input("Selecciona una opción (1, 2, 3): ")
+
+        if opcion == "1":
+            usuario_objeto = Usuario()
+            archivos_preguntas = ["Nivel_1.txt", "Nivel_2.txt", "Nivel_3.txt",
+                                  "Nivel_4.txt", "Nivel_5.txt", "Nivel_6.txt", "Nivel_7.txt"]
+            juego = Juego_preguntas(archivos_preguntas, usuario_objeto)
+            juego.jugar()
+        elif opcion == "2":
+            juego = Juego_preguntas([], None)  # No es necesario pasar un usuario para mostrar puntajes antiguos
+            juego.mostrar_puntajes_antiguos()
+        elif opcion == "3":
+            print("¡Hasta luego!")
+            exit()
+        else:
+            print("Opción no válida. Por favor, selecciona una opción válida.")
+
+main()
