@@ -1,0 +1,36 @@
+¿Cuál es la función con la que se imprime un mensaje en Python
+a. int
+b. echo
+c. print
+d. for
+CORRECTA: c
+¿Cómo se llama el superhéroe que se viste de murciélago?
+a. Batman
+b. Superman
+c. Iron Man
+d. Popeye
+CORRECTA: a
+¿En qué banda estuvo el famoso cantante Freddie Mercury?
+a. Los Querubines Negros del Morocotongo
+b. Queen
+c. Kizz
+d. The Beatles
+CORRECTA: b
+¿Cuál es un color primario?
+a. Rojo
+b. Negro
+c. Naranja
+d. Morado
+CORRECTA: a
+En idioma inglés, la palabra “carro” se dice:?
+a. Red
+b. Cell 
+c. Computer
+d. Car
+CORRECTA: d
+¿Qué día se celebra la independencia de Costa Rica?
+a. 15 de noviembre
+b. 4 de mayo
+c. 15 de septiembre
+d. 24 de diciembre
+CORRECTA: c
