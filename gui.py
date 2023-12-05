@@ -1,19 +1,19 @@
 import tkinter as tk
 from tkinter import messagebox
 from informacion_usuario import Usuario
-from logica_preguntas import Juego_preguntas
+from logica_preguntas import Juego_preguntas, center
 import time 
 
 class Millionario:
     def __init__(self, root):
         self.root = root
-        self.root.title("¿Quién Quiere Ser Millonario?")
+        self.root.title("¿Quién quiere ser millonario?")
         self.root.geometry("400x300")
-
+        center(self.root)
         self.menu()
 
     def menu(self):
-        label = tk.Label(self.root, text="Bienvenido al juego", font=("Arial", 18))
+        label = tk.Label(self.root, text="Bienvenido a \n ¿Quién Quiere ser Millionario?", font=("Arial", 18))
         label.pack(pady=20)
         
         botón_iniciar= tk.Button(self.root, text="Iniciar Partida", command=self.iniciar_cuestionario)
@@ -25,6 +25,7 @@ class Millionario:
         # crear ventana para ingresar info de usuario
         ventana_usuario = tk.Toplevel(self.root)
         ventana_usuario.geometry("400x300")
+        center(ventana_usuario)
         ventana_usuario.title("Información del Usuario")
 
         etiqueta = tk.Label(ventana_usuario, text="Nombre:")
@@ -55,8 +56,9 @@ class Millionario:
         ventana_usuario = tk.Toplevel(self.root)
 
         # crear ventana para desplegar info de usuario
-        ventana_usuario.geometry("400x300")
+        ventana_usuario.geometry("400x200")
         ventana_usuario.title("Información del Usuario")
+        center(ventana_usuario)
         datos = [usuario.nombre, usuario.trabajo, usuario.edad]
 
         etiqueta = tk.Label(ventana_usuario)
@@ -72,13 +74,10 @@ class Millionario:
         ventana.destroy()
 
     def iniciar_cuestionario(self):
-        self.root.destroy()
-        # Iniciar el juego con la información del usuario
-        # Por ejemplo:
+        
         archivos_preguntas = ["Nivel_1.txt", "Nivel_2.txt", "Nivel_3.txt",
                               "Nivel_4.txt", "Nivel_5.txt", "Nivel_6.txt", "Nivel_7.txt"]
-        juego= Juego_preguntas(archivos_preguntas)
-        # Llamar a la función para comenzar a mostrar las preguntas
+        juego= Juego_preguntas(archivos_preguntas, self.root)
         juego.jugar()
 
 
