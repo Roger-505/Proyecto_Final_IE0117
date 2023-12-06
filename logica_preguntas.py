@@ -48,9 +48,6 @@ class Juego_preguntas:
         self.puntos = 0
 
     def mostrar_pregunta(self, gui_nivel):
-        print(f"Nivel {self.nivel_actual} - Pregunta: {self.pregunta_actual.enunciado}\n")
-        print("Opciones (escriba la letra):\n")
-
         global respuesta
         respuesta = tk.StringVar()
 
@@ -61,7 +58,6 @@ class Juego_preguntas:
         # generar botones para los comodines
         botones_comodines = {}
         for i in range(0, len(self.comodines)):     
-            print(self.comodines)
             botones_comodines[f"{self.comodines[i]}"]= tk.Button(gui_nivel, text=f"{i}) {self.comodines[i]}", font=("Arial", 12), wraplength=300, justify="right", command=lambda i=i: respuesta.set(self.comodines[i].upper()))
             botones_comodines[f"{self.comodines[i]}"].place(x = 600, y=100+50*(i + 2))
             
@@ -106,7 +102,10 @@ class Juego_preguntas:
             elif elección_comodín == "PÚBLICO"  and "Público" in self.comodines:
                 publico = Publico()
                 porcentajes_asignados = publico.accion_comodin(self.pregunta_actual.opciones, self.pregunta_actual.respuesta_correcta)
-                messagebox.showinfo("¿Quién quiere ser millonario?", f"El público votará por la respuesta que crean que es correcta\n Estos son los resultados:\n{porcentajes_asignados}")
+                porcentaje_list = [f"{key} = {value}" for key, value in porcentajes_asignados.items()]
+                porcentaje_formateado = '   '.join(porcentaje_list)
+
+                messagebox.showinfo("¿Quién quiere ser millonario?", f"El público votará por la respuesta que crean que es correcta\n Estos son los resultados:\n{porcentaje_formateado}")
                 self.comodines.remove("Público")
 
                 # eliminar el comodín de público
@@ -148,6 +147,8 @@ class Juego_preguntas:
     
     # Esta función esta encargada de proporcionar una interfaz para mostrar las preguntas, opciones y respuesta.
     def jugar(self):
+        # minimizar ventana de menú
+        self.root.state(newstate='iconic')
         for nivel, preguntas_nivel in enumerate(self.preguntas, start=1):
             self.nivel_actual = nivel
             
