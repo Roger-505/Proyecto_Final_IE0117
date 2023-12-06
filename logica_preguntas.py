@@ -1,9 +1,8 @@
 import random
-import time
-import threading
 import tkinter as tk
 from comodines import Publico, Mitad, Cambio_pregunta
 from tkinter import messagebox
+import time
 
 class Pregunta:
     def __init__(self, enunciado, opciones, respuesta_correcta):
@@ -47,6 +46,7 @@ class Juego_preguntas:
         self.preguntas = Pregunta.cargar_todas_las_preguntas(archivos_preguntas)
         self.comodines = ["Mitad","Público","Cambiar pregunta"]
         self.root = root
+        self.puntos = 0
 
     def mostrar_pregunta(self, gui_nivel):
         print(f"Nivel {self.nivel_actual} - Pregunta: {self.pregunta_actual.enunciado}\n")
@@ -55,58 +55,94 @@ class Juego_preguntas:
         global respuesta
 
         respuesta = tk.StringVar()
-        pregunta = tk.Label(gui_nivel, text=f"{self.pregunta_actual.enunciado}", font=("Arial", 12), wraplength=800, justify="left")
-        pregunta.place(x = 20, y=60)
-
-        # botones para escoger una respuesta SE PODRÁ HACER CON UN FOR???
-        
-
-        botón_A = tk.Button(gui_nivel, text=f"{self.pregunta_actual.opciones[0]}", font=("Arial", 12), wraplength=300, justify="left", command=lambda: respuesta.set("A"))
-        botón_A.place(x = 20, y=60+50*1)
-        botón_B = tk.Button(gui_nivel, text=f"{self.pregunta_actual.opciones[1]}", font=("Arial", 12), wraplength=300, justify="left", command=lambda: respuesta.set("B"))
-        botón_B.place(x = 20, y=60+50*2)
-        botón_C = tk.Button(gui_nivel, text=f"{self.pregunta_actual.opciones[2]}", font=("Arial", 12), wraplength=300, justify="left", command=lambda: respuesta.set("C"))
-        botón_C.place(x = 20, y=60+50*3)
-        botón_D = tk.Button(gui_nivel, text=f"{self.pregunta_actual.opciones[3]}", font=("Arial", 12), wraplength=300, justify="left", command=lambda: respuesta.set("D"))
-        botón_D.place(x = 20, y=60+50*4)
 
         # botones para escoger comodines
         comodin = tk.Label(gui_nivel, text=f"Comodines", font=("Arial", 12))
-        comodin.place(x = 600, y=110)
+        comodin.place(x = 600, y=130)
 
-        botón_comodin_1= tk.Button(gui_nivel, text=f"{0}) {self.comodines[0]}", font=("Arial", 12), wraplength=300, justify="right", command=lambda: respuesta.set("B"))
-        botón_comodin_1.place(x = 600, y=60+50*2)
-        botón_comodin_2= tk.Button(gui_nivel, text=f"{1}) {self.comodines[1]}", font=("Arial", 12), wraplength=300, justify="right", command=lambda: respuesta.set("B"))
-        botón_comodin_2.place(x = 600, y=60+50*3)
-        botón_comodin_3= tk.Button(gui_nivel, text=f"{2}) {self.comodines[2]}", font=("Arial", 12), wraplength=300, justify="right", command=lambda: respuesta.set("B"))
-        botón_comodin_3.place(x = 600, y=60+50*4)
+        botones_comodines = {}
+        for i in range(0, len(self.comodines)):     
+            print(self.comodines)
+            botones_comodines[f"{self.comodines[i]}"]= tk.Button(gui_nivel, text=f"{i}) {self.comodines[i]}", font=("Arial", 12), wraplength=300, justify="right", command=lambda i=i: respuesta.set(self.comodines[i].upper()))
+            botones_comodines[f"{self.comodines[i]}"].place(x = 600, y=100+50*(i + 2))
+            
+        # botones para escoger una respuesta
+        pregunta = tk.Label(gui_nivel, text=f"{self.pregunta_actual.enunciado}", font=("Arial", 12), wraplength=800, justify="left")
+        pregunta.place(x = 20, y=60)
 
-        botón_D.wait_variable(respuesta)
+        botones_opciones = {}
+        for i in range(0, len(self.pregunta_actual.opciones)):   
+            botones_opciones[f"botón_opción_{i + 1}"]= tk.Button(gui_nivel, text=f"{self.pregunta_actual.opciones[i]}", font=("Arial", 12), wraplength=300, justify="right", command=lambda i=i: respuesta.set(chr(i + 65).upper()))
+            botones_opciones[f"botón_opción_{i + 1}"].place(x = 20, y=80+50*(i + 1))
+
+        botones_opciones[f"botón_opción_{len(self.pregunta_actual.opciones) - 1}"].wait_variable(respuesta)
+    
+        return respuesta, botones_opciones, botones_comodines
     # Invoca el comodín a utilizar 
-    def invocar_comodines(self):
-        try:
-            eleccion_comodin = str(input("Comodín a elegir: ").upper())
-        except ValueError:
-            print("Por favor, ingresa una opcion valida.")
-                
+    def invocar_comodines(self, elección_comodín, botones_comodines, botones_preguntas, gui_nivel, pregunta):
         while True:    
-            if eleccion_comodin == "MITAD"  and "Mitad" in self.comodines:
+            if elección_comodín == "MITAD"  and "Mitad" in self.comodines:
                 mitad = Mitad()
-                mitad.accion_comodin(self.pregunta_actual.opciones, self.pregunta_actual.respuesta_correcta)
+                opciones = mitad.accion_comodin(self.pregunta_actual.opciones, self.pregunta_actual.respuesta_correcta)
+                messagebox.showinfo("¿Quién quiere ser millonario?", "Vamos a eliminar dos opciones incorrectas")
                 self.comodines.remove("Mitad")
+
+                botón_mitad = botones_comodines["Mitad"]
+                botón_mitad.destroy()
+
+                respuesta = tk.StringVar()
+
+                for botón in list(botones_preguntas.values()):
+                    botón.destroy()
+
+                # nuevos botones 
+                botón_A = tk.Button(gui_nivel, text=f"{self.pregunta_actual.opciones[0]}", font=("Arial", 12), wraplength=300, justify="left", command=lambda : respuesta.set(opciones[0].split(".")[0].upper()))
+                botón_A.place(x = 20, y=60+50*1)
+                botón_B = tk.Button(gui_nivel, text=f"{self.pregunta_actual.opciones[1]}", font=("Arial", 12), wraplength=300, justify="left", command=lambda : respuesta.set(opciones[1].split(".")[0].upper()))
+                botón_B.place(x = 20, y=60+50*2)
+                 
+                botón_B.wait_variable(respuesta) 
                 break
-            elif eleccion_comodin == "PÚBLICO"  and "Público" in self.comodines:
+            elif elección_comodín == "PÚBLICO"  and "Público" in self.comodines:
                 publico = Publico()
-                publico.accion_comodin(self.pregunta_actual.opciones, self.pregunta_actual.respuesta_correcta)
+                porcentajes_asignados = publico.accion_comodin(self.pregunta_actual.opciones, self.pregunta_actual.respuesta_correcta)
+                messagebox.showinfo("¿Quién quiere ser millonario?", f"El público votará por la respuesta que crean que es correcta\n Estos son los resultados:\n{porcentajes_asignados}")
                 self.comodines.remove("Público")
+
+                botón_publico = botones_comodines["Público"]
+                botón_publico.destroy()
+
+                for botón in list(botones_comodines.values()):
+                    botón.destroy()
+
+                respuesta = tk.StringVar()
+
+                respuesta, botones_opciones, botones_comodines = self.mostrar_pregunta(gui_nivel) 
                 break
-            elif eleccion_comodin == "CAMBIAR PREGUNTA"  and "Cambiar pregunta" in self.comodines:
+            elif elección_comodín == "CAMBIAR PREGUNTA"  and "Cambiar pregunta" in self.comodines:
                 cambio = Cambio_pregunta()
                 #Necesitamos cambiar la respuesta correcta
-                self.pregunta_actual.respuesta_correcta = cambio.accion_comodin(self.nivel_actual, self.pregunta_actual.enunciado)
+                self.pregunta_actual.enunciado, self.pregunta_actual.opciones, self.pregunta_actual.respuesta_correcta = cambio.accion_comodin(self.nivel_actual, self.pregunta_actual.enunciado)
+                messagebox.showinfo("¿Quién quiere ser millonario?","Vamos a hacer un cambio de pregunta")
                 self.comodines.remove("Cambiar pregunta")
+                
+                botón_cambiar = botones_comodines["Cambiar pregunta"]
+                botón_cambiar.destroy()
+
+                pregunta = tk.Label(gui_nivel, text=f"Nivel {self.nivel_actual}", font=("Arial", 18))
+                pregunta.place(x = 20, y=20)
+
+                # generar nueva pregunta
+                for botón in list(botones_preguntas.values()):
+                    botón.destroy()
+                pregunta.destroy()
+                
+                print(self.comodines)
+                respuesta, botones_opciones, botones_comodines = self.mostrar_pregunta(gui_nivel) 
+
                 break
             else:
+                # es imposible elegir otro comodín. Esto se puede quitar
                 print("EL comodín que elegista ya fue utilizado o no existe.")
                 try:
                     eleccion_comodin = str(input("Escriba otro comodín o 'Respuesta' si prefiere no usar comodines: ").upper())
@@ -114,13 +150,9 @@ class Juego_preguntas:
                     print("Por favor, ingresa una opcion valida.")
                 if eleccion_comodin == "RESPUESTA":
                     break
-        # Ahora obtenemos la nueva respuesta       
-        try:
-            respuesta = str(input("Nueva respuesta: ").upper())
-        except ValueError:
-            print("Por favor, ingresa una opcion valida.")
+        # Ahora obtenemos la nueva respuesta      
         return respuesta
-
+    
     # Esta función esta encargada de proporcionar una interfaz para mostrar las preguntas, opciones y respuesta.
     def jugar(self):
         for nivel, preguntas_nivel in enumerate(self.preguntas, start=1):
@@ -130,25 +162,19 @@ class Juego_preguntas:
             gui_nivel.geometry("900x450")
             center(gui_nivel)
 
-            label = tk.Label(gui_nivel, text=f"Nivel {self.nivel_actual}", font=("Arial", 18))
-            label.place(x = 20, y=20)
+            pregunta = tk.Label(gui_nivel, text=f"Nivel {self.nivel_actual}", font=("Arial", 18))
+            pregunta.place(x = 20, y=20)
 
+            self.pregunta_actual = random.choice(preguntas_nivel) 
+            respuesta, botones_opciones, botones_comodines = self.mostrar_pregunta(gui_nivel) 
 
-            self.pregunta_actual = random.choice(preguntas_nivel) # Selecciona una pregunta aleatoria del nivel
-            
-            self.mostrar_pregunta(gui_nivel)
+            print(respuesta.get())
+            if respuesta.get() in ["MITAD", "PÚBLICO", "CAMBIAR PREGUNTA"]:
+                respuesta = self.invocar_comodines(respuesta.get(), botones_comodines,  botones_opciones, gui_nivel, pregunta)
 
-            """
-            if respuesta.get() == "COMODÍN":
-                respuesta = self.invocar_comodines()
-
-            if respuesta.get() == "SALIR":
-                print("La seccion de juego ha finalizado.")
-                exit()
-            """
-            
             if respuesta.get() == self.pregunta_actual.respuesta_correcta:
-                messagebox.showinfo("¿Quién quiere ser millonario?", "¡Respuesta correcta!")
+                self.puntos += 10
+                messagebox.showinfo("¿Quién quiere ser millonario?", f"¡Respuesta correcta!\n Puntos totales: {self.puntos}")
                 gui_nivel.destroy()
             else:
                 messagebox.showinfo("¿Quién quiere ser millonario?", "Respuesta incorrecta. Fin del juego")
