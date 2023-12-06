@@ -1,5 +1,7 @@
 import random
 import time
+import tkinter as tk
+from tkinter import messagebox
 
 class Comodines:
     def __init__(self):
@@ -10,18 +12,14 @@ class Comodines:
 # Clase hija de Comodines
 class Mitad(Comodines):
     def accion_comodin(self, opciones, respuesta_correcta):
-        print("\nVamos a eliminar dos opciones incorrectas\n")
-        time.sleep(3)
         for i in range(len(opciones)//2): #For con la mitad de las opciones totales para eliminar la mitad
             while True:
                 eliminar = opciones[random.randint(0,len(opciones)-1)]
                 if not respuesta_correcta + "." in eliminar.upper(): #Verificamos que la respuesta a eliminar no sea la correcta
                     opciones.remove(eliminar)
                     break
-        print("Estas son tus opciones finales:\n")
-        print("Opciones (escriba la letra):\n")
-        for opcion in opciones:
-            print(f"{opcion}")
+
+        return opciones
 
 # Clase hija de Comodines
 class Publico(Comodines):
@@ -73,11 +71,8 @@ class Publico(Comodines):
                     porcentaje = porcentaje - (acumulado+porcentaje - 100)
                     porcentajes_asignados[clave[i]] = str(porcentaje) + "%"
                     acumulado += porcentaje
-
-        print("El público votará por la respuesta que crean que es correcta\n")
-        time.sleep(3)
-        print("Estos han sido los resultados:\n")
-        print(porcentajes_asignados)
+    
+        return porcentajes_asignados
 
 
 class Cambio_pregunta(Comodines):
@@ -85,7 +80,7 @@ class Cambio_pregunta(Comodines):
     def accion_comodin(self, archivo_nivel, pregunta_actual):
         respuesta_correcta = ""
         while True:
-            with open(("Nivel_" + str(archivo_nivel) + ".txt"), 'r') as file:
+            with open(("Nivel_" + str(archivo_nivel) + ".txt"), 'r', encoding="utf-8") as file:
                 lines = file.readlines()
 
             i = 0
@@ -102,15 +97,5 @@ class Cambio_pregunta(Comodines):
                 i += 6    # Avanza al siguiente conjunto de pregunta y opciones
             
             if not pregunta_actual == pregunta:
-                print("Esta es tu nueva pregunta:\n")
-                print(pregunta,"\n")
-                time.sleep(1)
-                print("Opciones (escriba la letra):\n")
-                for opcion in opciones:
-                    print(f"{opcion}")
-                break
-        return respuesta_correcta
-        
-
-
-
+                print(pregunta, opciones, respuesta_correcta)
+                return pregunta, opciones, respuesta_correcta
