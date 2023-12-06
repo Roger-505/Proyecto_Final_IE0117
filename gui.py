@@ -22,6 +22,9 @@ class Millionario:
 
     def obtener_info_usuario(self):
         # crear ventana para ingresar info de usuario
+
+        botón_presionado = tk.StringVar()
+
         ventana_usuario = tk.Toplevel(self.root)
         ventana_usuario.geometry("400x300")
         center(ventana_usuario)
@@ -43,10 +46,12 @@ class Millionario:
         info_edad.pack()
 
 
-        botón_ingresar = tk.Button(ventana_usuario, text="Ingresar", command=lambda: self.desplegar_info_usuario(ventana_usuario, info_nombre.get(), info_trabajo.get(), info_edad.get()))
+        botón_ingresar = tk.Button(ventana_usuario, text="Ingresar", command=lambda: botón_presionado.set("botón presionado") )
         botón_ingresar.pack()
 
-        usuario = Usuario(info_nombre.get(), info_trabajo.get(), info_edad.get())
+        botón_ingresar.wait_variable(botón_presionado)
+        
+        usuario = self.desplegar_info_usuario(ventana_usuario, info_nombre.get(), info_trabajo.get(), info_edad.get())
 
         return usuario
 
@@ -62,6 +67,10 @@ class Millionario:
 
         etiqueta = tk.Label(ventana_usuario)
         lista = tk.Listbox(ventana_usuario, width = 70)
+
+        datos = [usuario.nombre, usuario.trabajo, usuario.edad]
+        etiqueta = tk.Label(ventana_usuario)
+        lista = tk.Listbox(ventana_usuario, width = 70)
   
         for dato in datos:
             lista.insert(tk.END, dato)
@@ -72,11 +81,15 @@ class Millionario:
 
         ventana.destroy()
 
+        return usuario
+    
     def iniciar_cuestionario(self):
         
         archivos_preguntas = ["Nivel_1.txt", "Nivel_2.txt", "Nivel_3.txt",
                               "Nivel_4.txt", "Nivel_5.txt", "Nivel_6.txt", "Nivel_7.txt"]
-        juego= Juego_preguntas(archivos_preguntas, self.root)
+        usuario = self.obtener_info_usuario()
+        print(usuario.nombre, usuario.trabajo, usuario.obtener_edad)
+        juego = Juego_preguntas(archivos_preguntas, self.root, usuario)
         juego.jugar()
 
 def main():

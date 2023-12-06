@@ -39,12 +39,13 @@ class Pregunta:
 # Clase que encapsula la logica del juego.
 
 class Juego_preguntas:
-    def __init__(self, archivos_preguntas, root):
+    def __init__(self, archivos_preguntas, root, usuario):
         self.archivos_preguntas = archivos_preguntas
         self.rondas = 7
         self.preguntas = Pregunta.cargar_todas_las_preguntas(archivos_preguntas)
         self.comodines = ["Mitad","Público","Cambiar pregunta"]
         self.root = root
+        self.usuario = usuario
         self.puntos = 0
 
     def mostrar_pregunta(self, gui_nivel):
@@ -172,12 +173,23 @@ class Juego_preguntas:
             if respuesta.get() == self.pregunta_actual.respuesta_correcta:
                 self.puntos += 10
                 messagebox.showinfo("¿Quién quiere ser millonario?", f"¡Respuesta correcta!\n Puntos totales: {self.puntos}")
+                self.guardar_resultados()
                 gui_nivel.destroy()
             else:
                 messagebox.showinfo("¿Quién quiere ser millonario?", "Respuesta incorrecta. Fin del juego")
+                self.guardar_resultados()
                 gui_nivel.destroy()
                 self.root.destroy()
                 exit()
+
+    def guardar_resultados(self):
+        with open("resultados.txt", "a", encoding="utf-8") as file:
+            file.write(f"Nombre: {self.usuario.nombre}\n")
+            file.write(f"Trabajo: {self.usuario.trabajo}\n")
+            file.write(f"Edad: {self.usuario.edad}\n")
+            file.write(f"Puntos obtenidos: {self.puntos}\n")
+            file.write("\n")
+
 
 def center(ventana):
     # centrar ventana
