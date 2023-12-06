@@ -2,7 +2,6 @@ import random
 import tkinter as tk
 from comodines import Publico, Mitad, Cambio_pregunta
 from tkinter import messagebox
-import time
 
 class Pregunta:
     def __init__(self, enunciado, opciones, respuesta_correcta):
@@ -53,20 +52,20 @@ class Juego_preguntas:
         print("Opciones (escriba la letra):\n")
 
         global respuesta
-
         respuesta = tk.StringVar()
 
         # botones para escoger comodines
         comodin = tk.Label(gui_nivel, text=f"Comodines", font=("Arial", 12))
         comodin.place(x = 600, y=130)
 
+        # generar botones para los comodines
         botones_comodines = {}
         for i in range(0, len(self.comodines)):     
             print(self.comodines)
             botones_comodines[f"{self.comodines[i]}"]= tk.Button(gui_nivel, text=f"{i}) {self.comodines[i]}", font=("Arial", 12), wraplength=300, justify="right", command=lambda i=i: respuesta.set(self.comodines[i].upper()))
             botones_comodines[f"{self.comodines[i]}"].place(x = 600, y=100+50*(i + 2))
             
-        # botones para escoger una respuesta
+        # generar botones para las opciones
         pregunta = tk.Label(gui_nivel, text=f"{self.pregunta_actual.enunciado}", font=("Arial", 12), wraplength=800, justify="left")
         pregunta.place(x = 20, y=60)
 
@@ -87,6 +86,7 @@ class Juego_preguntas:
                 messagebox.showinfo("¿Quién quiere ser millonario?", "Vamos a eliminar dos opciones incorrectas")
                 self.comodines.remove("Mitad")
 
+                # eliminar el comodín de mitad
                 botón_mitad = botones_comodines["Mitad"]
                 botón_mitad.destroy()
 
@@ -109,9 +109,11 @@ class Juego_preguntas:
                 messagebox.showinfo("¿Quién quiere ser millonario?", f"El público votará por la respuesta que crean que es correcta\n Estos son los resultados:\n{porcentajes_asignados}")
                 self.comodines.remove("Público")
 
+                # eliminar el comodín de público
                 botón_publico = botones_comodines["Público"]
                 botón_publico.destroy()
 
+                # eliminar comodines en pantalla
                 for botón in list(botones_comodines.values()):
                     botón.destroy()
 
@@ -121,14 +123,14 @@ class Juego_preguntas:
                 break
             elif elección_comodín == "CAMBIAR PREGUNTA"  and "Cambiar pregunta" in self.comodines:
                 cambio = Cambio_pregunta()
-                #Necesitamos cambiar la respuesta correcta
                 self.pregunta_actual.enunciado, self.pregunta_actual.opciones, self.pregunta_actual.respuesta_correcta = cambio.accion_comodin(self.nivel_actual, self.pregunta_actual.enunciado)
                 messagebox.showinfo("¿Quién quiere ser millonario?","Vamos a hacer un cambio de pregunta")
                 self.comodines.remove("Cambiar pregunta")
                 
+                # eliminar comodín de cambiar pregunta
                 botón_cambiar = botones_comodines["Cambiar pregunta"]
                 botón_cambiar.destroy()
-
+                
                 pregunta = tk.Label(gui_nivel, text=f"Nivel {self.nivel_actual}", font=("Arial", 18))
                 pregunta.place(x = 20, y=20)
 
@@ -141,15 +143,6 @@ class Juego_preguntas:
                 respuesta, botones_opciones, botones_comodines = self.mostrar_pregunta(gui_nivel) 
 
                 break
-            else:
-                # es imposible elegir otro comodín. Esto se puede quitar
-                print("EL comodín que elegista ya fue utilizado o no existe.")
-                try:
-                    eleccion_comodin = str(input("Escriba otro comodín o 'Respuesta' si prefiere no usar comodines: ").upper())
-                except ValueError:
-                    print("Por favor, ingresa una opcion valida.")
-                if eleccion_comodin == "RESPUESTA":
-                    break
         # Ahora obtenemos la nueva respuesta      
         return respuesta
     
@@ -158,6 +151,7 @@ class Juego_preguntas:
         for nivel, preguntas_nivel in enumerate(self.preguntas, start=1):
             self.nivel_actual = nivel
             
+            # generar interfaz del nivel
             gui_nivel = tk.Toplevel(self.root)
             gui_nivel.geometry("900x450")
             center(gui_nivel)
@@ -165,13 +159,15 @@ class Juego_preguntas:
             pregunta = tk.Label(gui_nivel, text=f"Nivel {self.nivel_actual}", font=("Arial", 18))
             pregunta.place(x = 20, y=20)
 
+            # randomizar la pregunta actual
             self.pregunta_actual = random.choice(preguntas_nivel) 
             respuesta, botones_opciones, botones_comodines = self.mostrar_pregunta(gui_nivel) 
 
-            print(respuesta.get())
+            # Elección de comodín
             if respuesta.get() in ["MITAD", "PÚBLICO", "CAMBIAR PREGUNTA"]:
                 respuesta = self.invocar_comodines(respuesta.get(), botones_comodines,  botones_opciones, gui_nivel, pregunta)
 
+            # Elección de respuesta
             if respuesta.get() == self.pregunta_actual.respuesta_correcta:
                 self.puntos += 10
                 messagebox.showinfo("¿Quién quiere ser millonario?", f"¡Respuesta correcta!\n Puntos totales: {self.puntos}")

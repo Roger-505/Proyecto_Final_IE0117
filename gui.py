@@ -1,5 +1,4 @@
 import tkinter as tk
-from tkinter import messagebox
 from informacion_usuario import Usuario
 from logica_preguntas import Juego_preguntas, center
 
@@ -15,6 +14,7 @@ class Millionario:
         label = tk.Label(self.root, text="Bienvenido a \n ¿Quién Quiere ser Millionario?", font=("Arial", 18))
         label.pack(pady=20)
         
+        # Iniciar partida
         botón_iniciar= tk.Button(self.root, text="Iniciar Partida", command=self.iniciar_cuestionario)
         botón_iniciar.pack()
         botón_iniciar= tk.Button(self.root, text="Ingresar información del usuario", command=self.obtener_info_usuario)
