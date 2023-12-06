@@ -2,7 +2,6 @@ import tkinter as tk
 from tkinter import messagebox
 from informacion_usuario import Usuario
 from logica_preguntas import Juego_preguntas, center
-import time 
 
 class Millionario:
     def __init__(self, root):
@@ -79,7 +78,6 @@ class Millionario:
                               "Nivel_4.txt", "Nivel_5.txt", "Nivel_6.txt", "Nivel_7.txt"]
         juego= Juego_preguntas(archivos_preguntas, self.root)
         juego.jugar()
-
 
 def main():
     root = tk.Tk()
