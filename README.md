@@ -15,6 +15,8 @@ EL repositorio cuenta con un programa que tiene como objetivo simular un juego b
 
 - Archivos .txt: es la versión final de las preguntas creadas hasta el momento. Cada uno posee un nivel específico de preguntas con sus propios enunciados, opciones y respuesta correcta. La cantidad de preguntas que puede llegar a poseer cada archivo es ilimitada con un mínimo de una pregunta por nivel.
 
+- 'resultados.txt': guarda los puntajes anteriores de todos los participantes junto a su nombre, trabajo y edad.
+
 - GUI: en el se encuentra la lógica relacionada a la parte gráfica del juego.
 
 ## Dependencias
